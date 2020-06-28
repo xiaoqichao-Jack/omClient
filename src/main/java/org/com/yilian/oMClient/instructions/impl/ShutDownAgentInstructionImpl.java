@@ -2,8 +2,10 @@ package org.com.yilian.oMClient.instructions.impl;
 
 import org.com.yilian.oMClient.instructions.Instruction;
 
-public class ShutDownAgentInstructionImpl implements Instruction {
-    public void executeInstruction() {
+import java.net.Socket;
 
+public class ShutDownAgentInstructionImpl implements Instruction {
+    public int executeInstruction(Socket socket) {
+         return 0;
     }
 }

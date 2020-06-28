@@ -1,10 +1,14 @@
 package org.com.yilian.oMClient;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.com.yilian.oMClient.instructions.Functions;
+import org.com.yilian.oMClient.instructions.Instruction;
+import org.com.yilian.oMClient.instructions.impl.*;
+import org.com.yilian.oMClient.tool.SignatureUtils;
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * 客户端程序入口类
@@ -14,22 +18,69 @@ import java.util.Date;
  * 4 执行指令
  * 5 记录日志
  * 6 返回结果
- *
  */
-public class App 
-{
-    public static void main( String[] args ) throws Exception {
-        MessageDigest md5 = MessageDigest.getInstance("MD5");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String date = df.format(new Date());
-        String str = date.substring(0,"yyyy-MM-dd HH".length());
-        StringBuffer sb = new StringBuffer("02"+str).reverse();
-        //加密
-        md5.update(sb.toString().getBytes());
-        byte[] digest = md5.digest();
-        BigInteger bi = new BigInteger(digest);
-        String result = bi.toString(16).toLowerCase();
-        System.out.println( "加密前："+sb.toString());
-        System.out.println( "加密后："+result);
+public class App implements Runnable{
+    private Socket socket;
+    public App(Socket clientSocket){
+        socket = clientSocket;
+    }
+
+
+    private static boolean writeMessageToService(String message, Socket socket) throws Exception {
+        OutputStream out = socket.getOutputStream();
+        PrintStream printStream = new PrintStream(out);
+        printStream.println(message);
+        printStream.flush();
+        return true;
+    }
+
+    private static void getInstruction(int result,Socket socket) throws Exception{
+        Functions fun = Functions.getInstans();
+        switch (result) {
+            case 1:
+                fun.upadteAndInstal(socket);
+                break;
+            case 2:
+                fun.viewAgentConfig(socket);
+                break;
+            case 3:
+                fun.upadteAgentConfig(socket);
+                break; //可选
+            case 4:
+
+                break; //可选
+            case 5:
+
+                break; //可选
+            case 6:
+
+                break; //可选
+            case 7:
+
+                break; //可选
+            default: //可选
+                //语句
+        }
+    }
+
+    @Override
+    public void run() {
+        try {
+            InputStream in = socket.getInputStream();
+            Scanner scanner = new Scanner(in);
+            String message = scanner.nextLine();
+            System.out.println("客户端>" + message);
+            int i = SignatureUtils.signature(message);
+            if(-1 == i){
+                System.out.println("服务端签名校验失败");
+                writeMessageToService("verification error", socket);
+            }else{
+                System.out.println("服务端签名校验成功");
+                getInstruction(i,socket);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

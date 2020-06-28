@@ -1,1 +1,16 @@
-com\liangxw\Demo\App.class
+org\com\yilian\oMClient\tool\OSInfoUtil.class
+org\com\yilian\oMClient\instructions\impl\UpdateAndInstallInstructionImpl.class
+org\com\yilian\oMClient\instructions\impl\ShutDownExpandInstructionImpl.class
+org\com\yilian\oMClient\instructions\SpecifyCollection.class
+org\com\yilian\oMClient\tool\ProperUtils.class
+org\com\yilian\oMClient\instructions\impl\ViewAgentConfigInstructionImpl.class
+org\com\yilian\oMClient\tool\SignatureUtils.class
+org\com\yilian\oMClient\instructions\impl\UpdateAgentConfigInstructionImpl.class
+org\com\yilian\oMClient\instructions\impl\ShutDownAgentInstructionImpl.class
+org\com\yilian\oMClient\instructions\Instruction.class
+org\com\yilian\oMClient\instructions\Functions.class
+org\com\yilian\oMClient\tool\LogUtil.class
+org\com\yilian\oMClient\instructions\impl\StartupAgentInstructionImpl.class
+org\com\yilian\oMClient\instructions\impl\StartupExpandInstructionImpl.class
+org\com\yilian\oMClient\Main.class
+org\com\yilian\oMClient\App.class
