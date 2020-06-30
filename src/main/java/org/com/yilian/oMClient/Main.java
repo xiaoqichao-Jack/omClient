@@ -10,7 +10,7 @@ public class Main {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             //创建服务端
-            System.out.println("服务端启动，运行在" + serverSocket.getLocalSocketAddress());
+            System.out.println("The service starting. IP is" + serverSocket.getLocalSocketAddress());
             // 轮流等待请求
             while(true) {
                 // 等待客户端请求,无请求则闲置;有请求到来时,返回一个对该请求的socket连接

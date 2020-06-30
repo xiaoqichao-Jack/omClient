@@ -2,7 +2,9 @@ package org.com.yilian.oMClient;
 
 import org.com.yilian.oMClient.instructions.Functions;
 import org.com.yilian.oMClient.instructions.Instruction;
+import org.com.yilian.oMClient.instructions.SpecifyCollection;
 import org.com.yilian.oMClient.instructions.impl.*;
+import org.com.yilian.oMClient.tool.OSInfoUtil;
 import org.com.yilian.oMClient.tool.SignatureUtils;
 
 import java.io.*;
@@ -47,10 +49,10 @@ public class App implements Runnable{
                 fun.upadteAgentConfig(socket);
                 break; //可选
             case 4:
-
+                fun.shutDownAgent(socket);
                 break; //可选
             case 5:
-
+                fun.startupAgent(socket);
                 break; //可选
             case 6:
 
@@ -69,14 +71,20 @@ public class App implements Runnable{
             InputStream in = socket.getInputStream();
             Scanner scanner = new Scanner(in);
             String message = scanner.nextLine();
-            System.out.println("客户端>" + message);
+            System.out.println("client>" + message);
             int i = SignatureUtils.signature(message);
             if(-1 == i){
-                System.out.println("服务端签名校验失败");
+                System.out.println("verification error");
                 writeMessageToService("verification error", socket);
             }else{
-                System.out.println("服务端签名校验成功");
-                getInstruction(i,socket);
+                System.out.println("verification sucessed");
+                //linux不提供更新和安装功能
+                if((SpecifyCollection.UPDATE_AND_INSTALL.getValue() == i)&& OSInfoUtil.isLinux()){
+                    System.out.println("This feature is not supported");
+                    writeMessageToService("This feature is not supported", socket);
+                }else{
+                    getInstruction(i,socket);
+                }
             }
 
         } catch (Exception e) {

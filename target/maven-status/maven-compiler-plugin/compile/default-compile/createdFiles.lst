@@ -1,4 +1,6 @@
+org\com\yilian\oMClient\exception\DownloadFileException.class
 org\com\yilian\oMClient\tool\OSInfoUtil.class
+org\com\yilian\oMClient\exception\UnZipFilesException.class
 org\com\yilian\oMClient\instructions\impl\UpdateAndInstallInstructionImpl.class
 org\com\yilian\oMClient\instructions\impl\ShutDownExpandInstructionImpl.class
 org\com\yilian\oMClient\instructions\SpecifyCollection.class
@@ -14,3 +16,4 @@ org\com\yilian\oMClient\instructions\impl\StartupAgentInstructionImpl.class
 org\com\yilian\oMClient\instructions\impl\StartupExpandInstructionImpl.class
 org\com\yilian\oMClient\Main.class
 org\com\yilian\oMClient\App.class
+org\com\yilian\oMClient\tool\ZipUtil.class

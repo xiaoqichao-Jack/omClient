@@ -1,8 +1,6 @@
 package org.com.yilian.oMClient.instructions;
 
-import org.com.yilian.oMClient.instructions.impl.UpdateAgentConfigInstructionImpl;
-import org.com.yilian.oMClient.instructions.impl.UpdateAndInstallInstructionImpl;
-import org.com.yilian.oMClient.instructions.impl.ViewAgentConfigInstructionImpl;
+import org.com.yilian.oMClient.instructions.impl.*;
 import org.com.yilian.oMClient.tool.SignatureUtils;
 
 import java.io.InputStream;
@@ -53,4 +51,15 @@ public class Functions {
         boolean b = (execution == 1) ? writeMessageToService("execute instruction success", socket) : writeMessageToService("execute instruction error", socket);
         System.out.println("写完发送执行结果之后 socket状态 " + socket.isClosed());
     }
+
+    public void shutDownAgent(Socket socket){
+        Instruction instruction = new ShutDownAgentInstructionImpl();
+        instruction.executeInstruction(socket);
+    }
+
+    public void startupAgent(Socket socket){
+        Instruction instruction = new StartupAgentInstructionImpl();
+        instruction.executeInstruction(socket);
+    }
+
 }

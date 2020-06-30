@@ -10,6 +10,8 @@ public class UpdateAgentConfigInstructionImpl implements Instruction {
     private static String fileDir = ProperUtils.getProp("agentConfigFilePath");
     public int executeInstruction(Socket socket)  {
         int result ;
+        //覆盖之前先停止服务
+        new ShutDownAgentInstructionImpl().executeInstruction(socket);
         try{
             DataInputStream inputStream = new DataInputStream(
                     new BufferedInputStream(socket.getInputStream()));
@@ -51,6 +53,8 @@ public class UpdateAgentConfigInstructionImpl implements Instruction {
         }catch(Exception e){
             result = 0;
         }
+        //重启服务
+        new StartupAgentInstructionImpl().executeInstruction(socket);
         return result;
     }
 }

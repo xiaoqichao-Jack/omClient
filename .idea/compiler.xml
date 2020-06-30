@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="apache-logs-analysis" target="1.5" />
-      <module name="omClient" target="6" />
+      <module name="omClient" target="7" />
     </bytecodeTargetLevel>
   </component>
 </project>

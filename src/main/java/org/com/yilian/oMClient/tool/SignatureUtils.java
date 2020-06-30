@@ -27,7 +27,7 @@ public class SignatureUtils {
             byte[] digest = md5.digest();
             BigInteger bi = new BigInteger(digest);
             String cipher = bi.toString(16).toLowerCase();
-            System.out.println( "加密后："+cipher);
+            System.out.println( "after signature："+cipher);
             if(cipher.equals(ciphertext)){
                 return e.getValue();
             }
@@ -47,7 +47,7 @@ public class SignatureUtils {
             byte[] digest = md5.digest();
             BigInteger bi = new BigInteger(digest);
             String cipher = bi.toString(16).toLowerCase();
-            System.out.println( "加密后："+cipher);
+            System.out.println( "after signature："+cipher);
             if(cipher.equals(ciphertext)){
                 return true;
             }
